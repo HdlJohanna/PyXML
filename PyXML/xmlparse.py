@@ -1,7 +1,7 @@
 import json
+import re
 
-
-def ParseXMLElement(code:str,tag):
+def ParseXMLElement(code:str, tag):
     """
     The ParseXMLElement function parses a given XML element from the code.
        It takes two arguments: 
@@ -15,24 +15,22 @@ def ParseXMLElement(code:str,tag):
     :return: A tuple containing the string between two xml tags.    
     """
     
-    start = code.find(f'<{tag}>')+len(f'<{tag}>')
+    start = code.find(f'<{tag}>') + len(f'<{tag}>')
     end = code.find(f'</{tag}>')
     return code[start:end]
 
-def find(fp,Element,raise_error=False):
-    if not Element in fp.read():
-        if raise_error:
-            raise ValueError(f"Element {Element} is not in File")
-        else:
-            return -1
-    return ParseXMLElement(fp.read(),Element)
+def DictDump(code:str) -> dict:
+    """
+    Takes XML Code and dumps it into a dictionary
 
-def finds(s:str,element,raise_error=False):
-    
-    if not element in s:
-        if raise_error:
-            raise ValueError(f"Element {element} is not in Code")
+    :param code:str: Used to Pass the code of the xml file
+    :return: A Dictionary
+    """
+    elements = re.findall(r'<[^>]+>', code)
+    res = {}
+    for el in elements:
+        if "/" in el:
+            continue
         else:
-            return -1
-    return ParseXMLElement(s,element)
-
+            res[el.strip("<>")] = ParseXMLElement(code,el.strip("<>"))
+    return res
