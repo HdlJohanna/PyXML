@@ -22,7 +22,7 @@ code = open("sample.xml","r+").read()
 heading = ParseXMLElement(code,"heading")
 print(heading)
 ```
-
+#
 ## Getting ALL Tags as Dictionary:
 ```py
 from PyXML import DumpDict
