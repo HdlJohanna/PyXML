@@ -21,5 +21,5 @@ setup(
   classifiers=classifiers,
   keywords='xml', 
   packages=find_packages(),
-  install_requires=['urllib'] 
+  install_requires=['urllib3'] 
 )
